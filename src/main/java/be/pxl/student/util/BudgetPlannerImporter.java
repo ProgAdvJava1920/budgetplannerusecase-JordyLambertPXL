@@ -6,16 +6,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Util class to import csv file
  */
 public class BudgetPlannerImporter {
-    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("EEE MMM d HH:mm:ss z yyyy", Locale.US);
 
     public static List<String> readFile(Path p) {
 

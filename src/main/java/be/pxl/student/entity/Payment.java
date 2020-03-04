@@ -1,15 +1,15 @@
 package be.pxl.student.entity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Payment {
     private String IBAN;
-    private LocalDateTime date;
+    private Date date;
     private float amount;
     private String currency;
     private String detail;
 
-    public Payment(String IBAN, LocalDateTime date, float amount, String currency, String detail) {
+    public Payment(String IBAN, Date date, float amount, String currency, String detail) {
         this.IBAN = IBAN;
         this.date = date;
         this.amount = amount;
@@ -25,11 +25,11 @@ public class Payment {
         this.IBAN = IBAN;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
