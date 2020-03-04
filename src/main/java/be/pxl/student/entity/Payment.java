@@ -1,6 +1,7 @@
 package be.pxl.student.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Payment {
     private String IBAN;
@@ -67,5 +68,24 @@ public class Payment {
                 ", detail='" + detail + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Payment)) return false;
+        Payment payment = (Payment) o;
+        return Float.compare(payment.amount, amount) == 0 &&
+                Objects.equals(IBAN, payment.IBAN) &&
+                Objects.equals(date, payment.date) &&
+                Objects.equals(currency, payment.currency) &&
+                Objects.equals(detail, payment.detail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(IBAN, date, amount, currency, detail);
+    }
 }
+
+
 
