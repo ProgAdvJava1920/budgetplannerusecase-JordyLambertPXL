@@ -1,6 +1,5 @@
 package be.pxl.student.entity;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +13,8 @@ public class AccountDAO implements DAO<Account, AccountException> {
             "SELECT * FROM Account;";
     public static final String INSERT_ACCOUNT =
             "INSERT INTO Account (`IBAN`, `name`) VALUES(?, ?)";
+    private static final String UPDATE =
+            "UPDATE Account SET IBAN=?, name =? WHERE id = ?";
 
     private DAOManager daoManager;
 
@@ -91,9 +92,19 @@ public class AccountDAO implements DAO<Account, AccountException> {
     }
 
     @Override
-    public Account update(Account account) throws AccountException {
+    public boolean update(Account account) throws AccountException {
         //TODO implement update
-        throw new AccountException("Not yet implemented");
+        try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(UPDATE)) {
+
+            preparedStatement.setString(1, account.getIBAN());
+            preparedStatement.setString(2, account.getName());
+            preparedStatement.setInt(3, account.getId());
+            return preparedStatement.execute();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override

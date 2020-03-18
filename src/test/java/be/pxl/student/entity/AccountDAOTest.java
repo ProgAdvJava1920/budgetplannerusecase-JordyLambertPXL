@@ -7,11 +7,10 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AccountDAOTest {
-    // TODO: implement create, update delete. 
+    // TODO: implement create, update delete.
     private static final String DB_URL = "jdbc:h2:mem:test;MODE=MySql;INIT=RUNSCRIPT FROM 'classpath:BudgetPlannerTest.sql'";
     DAOManager manager;
     AccountDAO dao;
@@ -50,8 +49,15 @@ class AccountDAOTest {
     }
 
     @Test
-    void update() {
-        fail("not yet impl");
+    void it_should_update_account_name_to_dummyAccount() throws AccountException {
+        Account acc = dao.getById(1);
+        assertEquals("dummyName", acc.getName());
+
+        acc.setName("dummyAccount");
+        dao.update(acc);
+
+        acc = dao.getById(1);
+        assertEquals("dummyAccount", acc.getName());
     }
 
     @Test

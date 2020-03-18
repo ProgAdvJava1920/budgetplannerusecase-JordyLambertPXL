@@ -12,7 +12,7 @@ public interface DAO<T, E extends Exception> {
     T getById(int id) throws E;
 
     //Update
-    T update(T t) throws E;
+    boolean update(T t) throws E;
 
     //Delete
     T delete(T t) throws E;

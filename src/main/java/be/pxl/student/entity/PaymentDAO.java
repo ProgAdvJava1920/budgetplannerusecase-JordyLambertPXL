@@ -5,6 +5,12 @@ import java.util.List;
 public class PaymentDAO implements DAO<Payment, PaymentException> {
     // TODO: implement PaymentDAO
 
+    private DAOManager daoManager;
+
+    public PaymentDAO(DAOManager daoManager) {
+        this.daoManager = daoManager;
+    }
+
     @Override
     public Payment create(Payment payment) throws PaymentException {
         throw new PaymentException("Not yet implemented");
@@ -21,7 +27,7 @@ public class PaymentDAO implements DAO<Payment, PaymentException> {
     }
 
     @Override
-    public Payment update(Payment payment) throws PaymentException {
+    public boolean update(Payment payment) throws PaymentException {
         throw new PaymentException("Not yet implemented");
     }
 
