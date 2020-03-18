@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PaymentDaoTest {
-    PaymentDao dao;
+class PaymentDAOTest {
+    PaymentDAO dao;
     private static final String DB_URL = "jdbc:h2:mem:test;MODE=MySql;INIT=RUNSCRIPT FROM 'classpath:BudgetPlannerTest.sql'";
 
 
@@ -17,7 +17,7 @@ class PaymentDaoTest {
 
     @BeforeEach
     void setUp() {
-        //dao = new PaymentDao(DB_URL);
+        //dao = new PaymentDAO(DB_URL);
     }
 
     @Test

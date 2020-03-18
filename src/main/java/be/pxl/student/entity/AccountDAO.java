@@ -8,8 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDAO implements DAO<Account, AccountException> {
-    public static final String SELECT_BY_ID = "select * from Account where id = ?";
-    public static final String SELECT_ALL = "SELECT * FROM Account;";
+    public static final String SELECT_BY_ID =
+            "SELECT * FROM Account WHERE id = ?";
+    public static final String SELECT_ALL =
+            "SELECT * FROM Account;";
+    public static final String INSERT_ACCOUNT =
+            "INSERT INTO Account (`IBAN`, `name`) VALUES(?, ?)";
+
     private DAOManager daoManager;
 
     public AccountDAO(DAOManager daoManager) {
@@ -18,7 +23,7 @@ public class AccountDAO implements DAO<Account, AccountException> {
 
     @Override
     public Account create(Account account) throws AccountException {
-        try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement("INSERT INTO Account (`IBAN`, `name`) VALUES(?, ?)");) {
+        try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(INSERT_ACCOUNT);) {
             //preparedStatement.setInt(1, account.getId());
             preparedStatement.setString(1, account.getIBAN());
             preparedStatement.setString(2, account.getName());
@@ -87,12 +92,13 @@ public class AccountDAO implements DAO<Account, AccountException> {
 
     @Override
     public Account update(Account account) throws AccountException {
-        //To-Do implement update method
+        //TODO implement update
         throw new AccountException("Not yet implemented");
     }
 
     @Override
     public Account delete(Account account) throws AccountException {
+        //TODO implement delete
         throw new AccountException("Not yet implemented");
     }
 }

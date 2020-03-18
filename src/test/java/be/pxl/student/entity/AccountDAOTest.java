@@ -11,16 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class AccountDAOTest {
-
+    // TODO: implement create, update delete. 
     private static final String DB_URL = "jdbc:h2:mem:test;MODE=MySql;INIT=RUNSCRIPT FROM 'classpath:BudgetPlannerTest.sql'";
     DAOManager manager;
     AccountDAO dao;
 
-    @Test
-    void create() {
-        fail("not yet impl");
-    }
-
+    //Setup and TearDown
     @BeforeEach
     void setUp() {
         manager = new DAOManager(DB_URL);
@@ -32,13 +28,21 @@ class AccountDAOTest {
         manager.close();
     }
 
+    //Tests
     @Test
+    void create() {
+        fail("not yet impl");
+    }
+
+    @Test
+        //getAll => geeft maar 2 terug omdat we er 2 dummies hebben ingezet.
     void it_should_return_2_items() throws AccountException {
         List<Account> accounts = dao.getAll();
         assertEquals(2, accounts.size());
     }
 
     @Test
+        //getById(1) 
     void it_should_return_account_with_id_1() throws AccountException {
         Account acc = dao.getById(1);
         Account expected = new Account("dummyName", "dummyIBAN");

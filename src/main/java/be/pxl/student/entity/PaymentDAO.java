@@ -2,8 +2,8 @@ package be.pxl.student.entity;
 
 import java.util.List;
 
-public class PaymentDao implements DAO<Payment, PaymentException> {
-
+public class PaymentDAO implements DAO<Payment, PaymentException> {
+    // TODO: implement PaymentDAO
 
     @Override
     public Payment create(Payment payment) throws PaymentException {
@@ -14,6 +14,7 @@ public class PaymentDao implements DAO<Payment, PaymentException> {
     public List<Payment> getAll() throws PaymentException {
         throw new PaymentException("Not yet implemented");
     }
+
     @Override
     public Payment getById(int id) throws PaymentException {
         throw new PaymentException("Not yet implemented");
