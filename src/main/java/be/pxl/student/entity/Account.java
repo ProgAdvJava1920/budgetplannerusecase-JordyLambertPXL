@@ -9,6 +9,14 @@ public class Account {
 
     private int id;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public Account(int id, String IBAN, String name) {
         this.id = id;
         this.IBAN = IBAN;
