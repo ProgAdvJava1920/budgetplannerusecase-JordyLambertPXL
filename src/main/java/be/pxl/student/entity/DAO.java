@@ -15,6 +15,6 @@ public interface DAO<T, E extends Exception> {
     boolean update(T t) throws E;
 
     //Delete
-    T delete(T t) throws E;
+    String delete(T t) throws E;
 
 }

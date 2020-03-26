@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDAO implements DAO<Account, AccountException> {
+    //region Properties used for JDBC
+    /*
     public static final String SELECT_BY_ID =
             "SELECT * FROM Account WHERE id = ?";
     public static final String SELECT_ALL =
@@ -15,6 +17,8 @@ public class AccountDAO implements DAO<Account, AccountException> {
             "INSERT INTO Account (`IBAN`, `name`) VALUES(?, ?)";
     private static final String UPDATE =
             "UPDATE Account SET IBAN=?, name =? WHERE id = ?";
+     */
+    //endregion
 
     private DAOManager daoManager;
 
@@ -24,7 +28,8 @@ public class AccountDAO implements DAO<Account, AccountException> {
 
     @Override
     public Account create(Account account) throws AccountException {
-        try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(INSERT_ACCOUNT);) {
+        //region Used for JDBC
+        /*try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(INSERT_ACCOUNT);) {
             //preparedStatement.setInt(1, account.getId());
             preparedStatement.setString(1, account.getIBAN());
             preparedStatement.setString(2, account.getName());
@@ -46,12 +51,16 @@ public class AccountDAO implements DAO<Account, AccountException> {
         }
 
         throw new AccountException("Not yet implemented");
+
+         */
+        //endregion
+        throw new AccountException("Not yet implemented");
     }
 
     @Override
     public List<Account> getAll() throws AccountException {
-        List<Account> accountList = new ArrayList<>();
-
+        //region Used for JDBC
+        /*
         try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(SELECT_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -66,12 +75,18 @@ public class AccountDAO implements DAO<Account, AccountException> {
         } catch (SQLException e) {
             throw new AccountException("Error retrieving accounts", e);
         }
-        return accountList;
+         */
+        //endregion
+
+        throw new AccountException("Not yet implemented");
+        //List<Account> accountList = new ArrayList<>();
+        //return accountList;
     }
 
     @Override
     public Account getById(int id) throws AccountException {
-
+        //region Used for JDBC
+        /*
         try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(SELECT_BY_ID)) {
 
             preparedStatement.setInt(1, id);
@@ -89,11 +104,17 @@ public class AccountDAO implements DAO<Account, AccountException> {
         } catch (SQLException e) {
             throw new AccountException(String.format("Exception while retrieving account with id [%d]", id), e);
         }
+         */
+        //endregion
+        Account account = daoManager.entityManager.find(Account.class, id);
+        return account;
     }
 
     @Override
     public boolean update(Account account) throws AccountException {
-        //TODO implement update
+        throw new AccountException("Not yet implemented");
+        //region Used for JDBC
+        /*
         try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(UPDATE)) {
 
             preparedStatement.setString(1, account.getIBAN());
@@ -105,11 +126,12 @@ public class AccountDAO implements DAO<Account, AccountException> {
             ex.printStackTrace();
         }
         return false;
+         */
+        //endregion
     }
 
     @Override
-    public Account delete(Account account) throws AccountException {
-        //TODO implement delete
+    public String delete(Account account) throws AccountException {
         throw new AccountException("Not yet implemented");
     }
 }

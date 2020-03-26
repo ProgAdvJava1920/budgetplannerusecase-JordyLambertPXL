@@ -3,13 +3,17 @@ package be.pxl.student.entity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DAOManager {
-    Logger logger = LogManager.getLogger(AccountDAO.class);
     Connection connection;
+    Logger logger = LogManager.getLogger(AccountDAO.class);
+    EntityManagerFactory entityManagerFactory = null;
+    EntityManager entityManager = null;
     private String url;
     private String username;
     private String password;
@@ -25,31 +29,56 @@ public class DAOManager {
     }
 
     //Maken van connection
-    public Connection getConnection() throws SQLException {
+    public void getConnection() throws SQLException {
+        //region Used for JDBC
+        /*
         if (connection == null || connection.isClosed()) {
             connection = DriverManager.getConnection(url);
             connection.setAutoCommit(false);
         }
         return connection;
+
+         */
+        //endregion
+
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory(url);
+            entityManager = entityManagerFactory.createEntityManager();
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
     }
 
     //Sluiten van connection
     public void close() {
+        //region Used for JDBC
+        /*
         try {
             if (connection != null && !connection.isClosed()) connection.close();
         } catch (SQLException e) {
             logger.warn("Error closing connection", e);
         }
-
+         */
+        //endregion
+        if (entityManager != null && entityManager.isOpen()) entityManager.close();
+        if (entityManagerFactory != null && entityManagerFactory.isOpen()) entityManagerFactory.close();
     }
-
 
     //Commit en Rollback
     public void commit() throws SQLException {
-        if (connection != null) connection.commit();
+        //region Used for JDBC
+        /*if (connection != null) connection.commit();*/
+        //endregion
+        if (entityManager != null) entityManager.getTransaction().commit();
     }
 
     public void rollback(Exception originalException) {
+        //region Used for JDBC
         if (connection != null) {
             try {
                 connection.rollback();
@@ -57,5 +86,10 @@ public class DAOManager {
                 logger.warn("Rollback failed", originalException);
             }
         }
+        //endregion
+        if (entityManager != null) {
+            entityManager.getTransaction().rollback();
+        }
+
     }
 }

@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class BudgetPlannerMapper {
-    //TODO move and use properties file
     public static final String DATE_PATTERN = "EEE MMM d HH:mm:ss z yyyy";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(DATE_PATTERN, Locale.US);
     public static final int CVS_ITEM_COUNT = 7;

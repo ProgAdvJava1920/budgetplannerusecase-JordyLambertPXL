@@ -32,7 +32,7 @@ public class PaymentDAO implements DAO<Payment, PaymentException> {
     }
 
     @Override
-    public Payment delete(Payment payment) throws PaymentException {
+    public String delete(Payment payment) throws PaymentException {
         throw new PaymentException("Not yet implemented");
     }
 }
