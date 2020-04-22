@@ -12,9 +12,9 @@ public interface DAO<T, E extends Exception> {
     T getById(int id) throws E;
 
     //Update
-    boolean update(T t) throws E;
+    Account update(T t) throws E;
 
     //Delete
-    String delete(T t) throws E;
+    void delete(T t) throws E;
 
 }

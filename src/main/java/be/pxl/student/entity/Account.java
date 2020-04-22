@@ -1,20 +1,32 @@
 package be.pxl.student.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@NamedQuery(name = "findAll", query = "SELECT a from Account as a")
+@Entity
 public class Account {
-
+    //Eigenschappen
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    public void setId(int id) {
-        this.id = id;
+    @Column(unique = true)
+    private String IBAN;
+    private String name;
+    @OneToMany(mappedBy = "account")
+    private List<Payment> payments = new ArrayList<>();
+
+    //Constructoren
+    public Account() {
     }
 
-    public int getId() {
-        return id;
+    public Account(String name, String IBAN) {
+        this.IBAN = IBAN;
+        this.name = name;
     }
 
     public Account(int id, String IBAN, String name) {
@@ -23,16 +35,13 @@ public class Account {
         this.name = name;
     }
 
-    private String IBAN;
-    private String name;
-    private List<Payment> payments = new ArrayList<>();
-
-    public Account() {
+    //Getters en setters
+    public int getId() {
+        return id;
     }
 
-    public Account(String name, String IBAN) {
-        this.IBAN = IBAN;
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getIBAN() {
@@ -59,6 +68,7 @@ public class Account {
         this.payments = payments;
     }
 
+    //Extra methodes
     @Override
     public String toString() {
         return "Account{" +

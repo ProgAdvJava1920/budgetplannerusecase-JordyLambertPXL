@@ -1,10 +1,12 @@
 package be.pxl.student.entity;
 
+import be.pxl.student.JDBC.AccountDAO;
+import be.pxl.student.JDBC.DAOManager;
+import be.pxl.student.exception.AccountException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

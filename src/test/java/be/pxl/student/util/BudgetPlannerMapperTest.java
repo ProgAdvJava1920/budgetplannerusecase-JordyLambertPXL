@@ -2,6 +2,7 @@ package be.pxl.student.util;
 
 import be.pxl.student.entity.Account;
 import be.pxl.student.entity.Payment;
+import be.pxl.student.exception.BudgetPlannerException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -54,7 +55,6 @@ class BudgetPlannerMapperTest {
         String testDataLine = "Jos,BE69771770897312,BE17795215960626,Thu Feb 13 05:47:35 CET 2020,265.8,EUR,Ut ut necessitatibus itaque ullam.";
 
         Payment expectedPayment = new Payment(
-                "BE17795215960626",
                 mapper.convertToDate("Thu Feb 13 05:47:35 CET 2020"),
                 265.8f,
                 "EUR",

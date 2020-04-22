@@ -2,6 +2,7 @@ package be.pxl.student.util;
 
 import be.pxl.student.entity.Account;
 import be.pxl.student.entity.Payment;
+import be.pxl.student.exception.BudgetPlannerException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,7 +55,6 @@ public class BudgetPlannerMapper {
 
     public Payment mapItemsToPayment(String[] items) throws ParseException {
         return new Payment(
-                items[2],                       //IBAN
                 convertToDate(items[3]),        //Transaction date
                 Float.parseFloat(items[4]),     //Amount
                 items[5],                       //Currency

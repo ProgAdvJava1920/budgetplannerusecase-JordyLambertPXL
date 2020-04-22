@@ -1,12 +1,12 @@
 package be.pxl.student;
 
 import be.pxl.student.entity.Account;
-import be.pxl.student.util.BudgetPlannerException;
 import be.pxl.student.util.BudgetPlannerImporter;
 import be.pxl.student.util.BudgetPlannerMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.persistence.Persistence;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -24,5 +24,11 @@ public class BudgetPlanner {
         List<Account> accounts = new BudgetPlannerMapper().mapAccounts(list);
         accounts.forEach(logger::debug);
         logger.info("Accoutn mapping done");
+
+        insertIntoDatabase();
+    }
+
+    private static void insertIntoDatabase() {
+        Persistence.createEntityManagerFactory("budgetplanner");
     }
 }

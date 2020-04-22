@@ -1,4 +1,9 @@
-package be.pxl.student.entity;
+package be.pxl.student.JDBC;
+
+import be.pxl.student.entity.Account;
+import be.pxl.student.entity.DAO;
+import be.pxl.student.entity.Payment;
+import be.pxl.student.exception.PaymentException;
 
 import java.util.List;
 
@@ -27,12 +32,12 @@ public class PaymentDAO implements DAO<Payment, PaymentException> {
     }
 
     @Override
-    public boolean update(Payment payment) throws PaymentException {
+    public Account update(Payment payment) throws PaymentException {
         throw new PaymentException("Not yet implemented");
     }
 
     @Override
-    public String delete(Payment payment) throws PaymentException {
+    public void delete(Payment payment) throws PaymentException {
         throw new PaymentException("Not yet implemented");
     }
 }

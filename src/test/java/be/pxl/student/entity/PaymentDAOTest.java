@@ -1,5 +1,6 @@
 package be.pxl.student.entity;
 
+import be.pxl.student.JDBC.PaymentDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
