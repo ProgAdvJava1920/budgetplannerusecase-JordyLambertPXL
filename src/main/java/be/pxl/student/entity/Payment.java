@@ -94,8 +94,6 @@ public class Payment {
     }
 
     //Extra methodes
-
-
     @Override
     public String toString() {
         return "Payment{" +

@@ -4,6 +4,7 @@ import be.pxl.student.entity.Account;
 import be.pxl.student.entity.DAO;
 import be.pxl.student.exception.AccountException;
 import be.pxl.student.exception.AccountNotFoundException;
+import org.hibernate.cfg.NotYetImplementedException;
 
 
 import java.sql.PreparedStatement;
@@ -22,13 +23,18 @@ public class AccountDAO implements DAO<Account, AccountException> {
             "INSERT INTO Account (`IBAN`, `name`) VALUES(?, ?)";
     private static final String UPDATE =
             "UPDATE Account SET IBAN=?, name =? WHERE id = ?";
+    private static final String DELETE =
+            "DELETE FROM Account WHERE id = ?";
 
     private DAOManager daoManager;
 
+    //Constructor
     public AccountDAO(DAOManager daoManager) {
         this.daoManager = daoManager;
     }
 
+
+    //CRUD
     @Override
     public Account create(Account account) throws AccountException {
         try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(INSERT_ACCOUNT);) {
@@ -51,8 +57,7 @@ public class AccountDAO implements DAO<Account, AccountException> {
             daoManager.rollback(e);
             throw new AccountException(String.format("Error creating account [%s]", account), e);
         }
-
-        throw new AccountException("Not yet implemented");
+        return null;
     }
 
     @Override
@@ -79,6 +84,7 @@ public class AccountDAO implements DAO<Account, AccountException> {
 
     @Override
     public Account getById(int id) throws AccountException {
+        Account account = null;
 
         try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(SELECT_BY_ID)) {
 
@@ -86,38 +92,46 @@ public class AccountDAO implements DAO<Account, AccountException> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.first()) {
-                return new Account(
+                account =  new Account(
                         resultSet.getInt("id"),
                         resultSet.getString("IBAN"),
                         resultSet.getString("name"));
-            } else {
-                throw new AccountNotFoundException(String.format("Account with id [%d] not found", id));
             }
 
         } catch (SQLException e) {
             throw new AccountException(String.format("Exception while retrieving account with id [%d]", id), e);
         }
+        return account;
     }
 
     @Override
     public Account update(Account account) throws AccountException {
 
-        /*try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(UPDATE)) {
-
+        try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(UPDATE)) {
             preparedStatement.setString(1, account.getIBAN());
             preparedStatement.setString(2, account.getName());
             preparedStatement.setInt(3, account.getId());
-            return preparedStatement.execute();
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected != 1) throw new AccountException("Account more or less than one row updated!");
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;*/
-        throw new AccountException("yeet");
+        return account;
     }
 
     @Override
     public void delete(Account account) throws AccountException {
-        throw new AccountException("Not yet implemented");
+        int rows = 0;
+
+        try (PreparedStatement preparedStatement = daoManager.getConnection().prepareStatement(DELETE)) {
+            preparedStatement.setInt(1, account.getId());
+            rows = preparedStatement.executeUpdate();
+
+            if (rows != 1) throw new AccountException(String.format("Rows affected should be one but is %d", rows));
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
     }
 }

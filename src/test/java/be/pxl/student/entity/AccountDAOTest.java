@@ -12,10 +12,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountDAOTest {
-    // TODO: implement create, update delete.
+    //Properties
     private static final String DB_URL = "jdbc:h2:mem:test;MODE=MySql;INIT=RUNSCRIPT FROM 'classpath:BudgetPlannerTest.sql'";
     DAOManager manager;
     AccountDAO dao;
+
 
     //Setup and TearDown
     @BeforeEach
@@ -29,10 +30,12 @@ class AccountDAOTest {
         manager.close();
     }
 
+
     //Tests
     @Test
-    void create() {
-        fail("not yet impl");
+    void create_should_create_new_account_with_id_3() throws AccountException {
+        Account account = dao.create(new Account(3, "TestIban", "TestName"));
+        assertEquals(account, dao.getById(3));
     }
 
     @Test
@@ -43,7 +46,6 @@ class AccountDAOTest {
     }
 
     @Test
-        //getById(1) 
     void it_should_return_account_with_id_1() throws AccountException {
         Account acc = dao.getById(1);
         Account expected = new Account("dummyName", "dummyIBAN");
@@ -63,7 +65,9 @@ class AccountDAOTest {
     }
 
     @Test
-    void delete() {
-        fail("not yet impl");
+    void it_should_be_null() throws AccountException {
+        Account acc = dao.getById(1);
+        dao.delete(acc);
+        assertNull(dao.getById(acc.getId()));
     }
 }
