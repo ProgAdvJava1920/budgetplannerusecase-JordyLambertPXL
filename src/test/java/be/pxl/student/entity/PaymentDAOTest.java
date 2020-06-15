@@ -38,7 +38,7 @@ class PaymentDAOTest {
 
     //Tests
     @Test
-    void should_create_payment_between_two_accounts_with_id_3() throws PaymentException, SQLException, AccountException {
+    void should_create_payment_between_two_accounts_with_id_3() throws PaymentException, AccountException {
         AccountDAO dao2 = new AccountDAO(manager);
         Account acc1 = dao2.getById(1);
         Account acc2 = dao2.getById(2);
@@ -48,7 +48,10 @@ class PaymentDAOTest {
         p.setCounterAccount(acc2);
 
         dao.create(p);
-        assertEquals(p, dao.getById(3));
+        Payment expectedPayment = dao.getById(3);
+        expectedPayment.setAccount(dao2.getById(p.getAccount().getId()));
+        expectedPayment.setCounterAccount(dao2.getById(p.getCounterAccount().getId()));
+        assertEquals(expectedPayment, p);
     }
 
     @Test

@@ -48,6 +48,7 @@ class BudgetPlannerMapperTest {
         Account expectedAccount = new Account("Jos", "BE69771770897312");
         Account lineToAccount = mapper.mapDataLineToAccount(testDataLine);
         assertEquals(expectedAccount, lineToAccount);
+        //TODO add payment to expected account.
     }
 
     @Test
@@ -72,5 +73,4 @@ class BudgetPlannerMapperTest {
         String dateToString = mapper.convertDateToString(date);
         assertEquals(testDate, dateToString);
     }
-
 }

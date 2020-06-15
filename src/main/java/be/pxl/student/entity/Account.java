@@ -83,7 +83,8 @@ public class Account {
         if (!(o instanceof Account)) return false;
         Account account = (Account) o;
         return Objects.equals(IBAN, account.IBAN) &&
-                Objects.equals(name, account.name);
+                Objects.equals(name, account.name) &&
+                Objects.equals(payments, ((Account) o).payments);
     }
 
     @Override
